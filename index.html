@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style type="text/css">
+	body {
+		font: 24px interstate;
+		float: left;
+		padding-top: 50px
+	}
+	.tooltip {
+		font: 20px interstate;
+		position: absolute;
+		text-align: left;
+		width: 80px;
+		height: 50px;
+		padding: -26px;
+		margin-top: -20px;
+		color: black;
+		pointer-events: none;
+	}
+	#legend {
+		float: right;
+	}
+
+</style>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<head>
+	<body>
+				
+
+	</body>
+	<div id="map" style="display: inline-block">
+		<script type="text/javascript">
+
+			var width = 200;
+			var height = 275;
+			var cellpadding = 30;
+
+			d3.json("WardsAMI.geojson")
+			.then(function(data){
+
+			var wards = data;
+
+			var multiples = ["0-30 AMI", "31-50 AMI", "51-60 AMI", "61+ AMI"];
+
+			var hue = d3.scaleSequential(d3.interpolatePurples)
+				.domain([0, 10]);
+
+			multiples.forEach(function(mult){
+
+				var svg = d3.select("div").append("svg")
+				.attr("width", width)
+				.attr("height", height)
+
+			var land = d3.map();
+
+			var projection = d3.geoMercator()
+				.center([-77.0380, 38.8572])
+				.scale(44000)
+				.translate([width/2, height/2])
+
+			var path = d3.geoPath()
+				.projection(projection);
+
+			var nestedData = d3.nest()
+				.key(function(d){
+					return d.properties[mult];
+				})
+				.key(function(d){
+					return d.geometry["coordinates"];
+				})
+				.entries(wards.features)
+					.map(function(d){
+						return d.key
+					});
+
+			var tooltip = d3.select("div")
+				.data(data.features)
+				.append("mult")
+				.attr("mult", mult)
+				.style("z-index", "10")
+				.style("visibility", "hidden")
+				.attr("class", "tooltip")
+				.classed("Ward", true)
+
+
+			svg.selectAll("path")
+				.data(data.features)
+				.enter()
+				.append("path")
+				.attr("d", path)
+				.attr("e", path)
+				.style("fill", function(d){
+					return hue(d.properties[mult])
+				})
+				.attr("mult", mult)
+				.style("stroke", "black")
+				.style("stroke-width", ".5px")
+				.attr("class", function (d){
+					return "Ward" + d.properties.WARD
+				})
+				.on("mouseover.highlight", function(d){
+					d3.selectAll(".Ward"+d.properties.WARD)
+						.style("stroke", "#efc050")
+						.style("stroke-width", 2)
+				})
+				.on("mouseout", function(d){
+					d3.selectAll(".Ward"+d.properties.WARD)
+						.style("fill", function(e){
+							return hue(e.properties[d3.select(this).attr("mult")])
+						})
+						.style("stroke", "black")
+						.style("stroke-width", ".5px")
+				})
+				.on("mouseover.tooltip", function(d){
+					d3.selectAll(".Ward")
+					.text(function(e){
+						tooltip.style("visibility", "visible")
+						return (d.properties.NAME + ":  " + d.properties[d3.select(this).attr("mult")] + "%")
+					})
+				})
+				.on("mouseleave", function(){
+					return tooltip.style("visibility", "hidden")
+				})
+
+			console.log(data.features.properties)
+
+			svg.selectAll("text.labels")
+				.data(wards.features)
+				.enter()
+				.append("text")
+				.attr("class", "label")
+				.style("text-anchor", "middle")
+				.attr("x", (width + 10)/2)
+				.attr("y", height-50)
+				.text(function(d){
+					return mult
+				})
+
+
+			})
+
+			})
+
+			
+
+
+		</script>
+
+</head>
+<div id="legend">
+			<h3><a href="https://bl.ocks.org/jkeohan/b8a3a9510036e40d3a4e">Legend</a></h3>
+			<div class="legend"> <p class="zero"><span class="key-dot zero"></span>Zero</p></div>
+</html>
