@@ -2,12 +2,14 @@
 <meta charset="utf-8">
 <style type="text/css">
 	body {
-		font: 24px interstate;
+		font: 24px helvetica;
 		float: left;
-		padding-top: 50px
+		
+
+
 	}
 	.tooltip {
-		font: 20px interstate;
+		font: 20px helvetica;
 		position: absolute;
 		text-align: left;
 		width: 80px;
@@ -16,24 +18,61 @@
 		margin-top: -20px;
 		color: black;
 		pointer-events: none;
+		margin-right: 55px;
 	}
-	#legend {
-		float: right;
+
+	h4 {
+		width: 700px;
+		font-family: helvetica;
+		letter-spacing: -0.09rem;
+		font-size: 30px;
+		padding: 0;
+		margin: 0;
+
+	}
+	p {
+		width: 700px;
+		font-family: helvetica;
+		letter-spacing: -0.03rem;
+		font-size: 17px;
+		font-weight: 0;
+		margin-top: 7px;
+	}
+
+	.legend {
+		margin-left: 175px;
+
+	}
+	
+
+	#map {
+		float: left;
+
+	}
+	#legendLinear {
+		float: left;
 	}
 
 </style>
 <script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
 
 <head>
+	<div id="headline">
+		<h4>Fewer than half of subsidized units are affordable for families making less than $60,650, or 50% of the area median income 	</h4>
+		<p>Combined, the maps show 100% of subsidized affordable units built, preserved and planned since 2015. Hover over the maps to show what percentage of units are affordable at that income level in a given ward. </p>
+
+	</div>
 	<body>
-				
+			
+			
 
 	</body>
 	<div id="map" style="display: inline-block">
 		<script type="text/javascript">
 
-			var width = 200;
-			var height = 275;
+			var width = 165;
+			var height = 200;
 			var cellpadding = 30;
 
 			d3.json("WardsAMI.geojson")
@@ -46,6 +85,7 @@
 			var hue = d3.scaleSequential(d3.interpolatePurples)
 				.domain([0, 10]);
 
+
 			multiples.forEach(function(mult){
 
 				var svg = d3.select("div").append("svg")
@@ -55,8 +95,8 @@
 			var land = d3.map();
 
 			var projection = d3.geoMercator()
-				.center([-77.0380, 38.8572])
-				.scale(44000)
+				.center([-77.0380, 38.8672])
+				.scale(34000)
 				.translate([width/2, height/2])
 
 			var path = d3.geoPath()
@@ -131,24 +171,70 @@
 				.append("text")
 				.attr("class", "label")
 				.style("text-anchor", "middle")
+				.style("font-family", "helvetica")
 				.attr("x", (width + 10)/2)
-				.attr("y", height-50)
+				.attr("y", height-20)
 				.text(function(d){
 					return mult
 				})
 
 
+
+
 			})
 
 			})
-
-			
-
-
 		</script>
+	</div>
+
+
+
+		<div id="wrapper">
+		<div id="legend">
+			
+			
+				<script type="text/javascript">
+					var w = 400
+					var h = 70
+
+					var svgs = d3.select("#legend").append("svg")
+						.attr("width", w)
+						.attr("height", h)
+						.attr("class", "legend")
+
+
+
+					var linear = d3.scaleLinear()
+  						.domain([0,10])
+  						.range(["rgb(252, 251, 253)", "rgb(63, 0, 125)"]);
+
+			var svgs = d3.select("svg");
+
+			svgs.append("g")
+  				.attr("class", "legendLinear")
+  				.attr("transform", "translate(20,20)");
+
+
+			var legendLinear = d3.legendColor()
+ 				 .shapeWidth(50)
+  				.orient('horizontal')
+  				.scale(linear);
+
+
+			d3.select(".legendLinear")
+  				.call(legendLinear);
+
+  			
+
+
+				</script>	  
+	</div>
+</div>
+
+
+
 
 </head>
-<div id="legend">
-			<h3><a href="https://bl.ocks.org/jkeohan/b8a3a9510036e40d3a4e">Legend</a></h3>
-			<div class="legend"> <p class="zero"><span class="key-dot zero"></span>Zero</p></div>
+
+
 </html>
