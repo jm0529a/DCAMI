@@ -37,7 +37,8 @@
 		letter-spacing: -0.03rem;
 		font-size: 17px;
 		font-weight: 0;
-		margin-top: 7px;
+		margin-top: 0px;
+		padding: 0px;
 	}
 
 	.legend {
@@ -53,7 +54,7 @@
 	}
 	#legendLinear {
 		float: left;
-		
+
 	}
 
 </style>
@@ -72,10 +73,11 @@
 
 	</body>
 	<div id="map" style="display: inline-block">
+
 		<script type="text/javascript">
 
 			var width = 165;
-			var height = 200;
+			var height = 195;
 			var cellpadding = 30;
 
 			d3.json("WardsAMI.geojson")
@@ -98,7 +100,7 @@
 			var land = d3.map();
 
 			var projection = d3.geoMercator()
-				.center([-77.0380, 38.8672])
+				.center([-77.0380, 38.87])
 				.scale(34000)
 				.translate([width/2, height/2])
 
@@ -176,7 +178,7 @@
 				.style("text-anchor", "middle")
 				.style("font-family", "helvetica")
 				.attr("x", (width + 10)/2)
-				.attr("y", height-20)
+				.attr("y", height-14)
 				.text(function(d){
 					return mult
 				})
@@ -190,15 +192,12 @@
 		</script>
 	</div>
 
-
-
 		<div id="wrapper">
 		<div id="legend">
 			
-			
 				<script type="text/javascript">
 					var w = 400
-					var h = 70
+					var h = 60
 
 					var svgs = d3.select("#legend").append("svg")
 						.attr("width", w)
@@ -230,7 +229,12 @@
   			
 
 
-				</script>	  
+				</script>
+				<div>
+				<p><font size="2">Source: D.C.'s affordable housing &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;      Graphic by James Marshall <br>database on opendata.dc.gov    </font></p>
+			<!-- <p align="right"><font size="2">Graphic by James Marshall</font></p><p align="left"><font size="2">Source: D.C.'s affordable housing <br>database on opendata.dc.gov</font></p> -->
+		</div>
+
 	</div>
 </div>
 
