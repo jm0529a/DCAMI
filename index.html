@@ -10,7 +10,7 @@
 
 	}
 	.tooltip {
-		font: 16px helvetica;
+		font: 20px helvetica;
 		position: absolute;
 		text-align: left;
 		width: 80px;
@@ -23,7 +23,7 @@
 	}
 
 	h4 {
-		width: 500px;
+		width: 700px;
 		font-family: helvetica;
 		letter-spacing: -0.09rem;
 		font-size: 30px;
@@ -32,7 +32,7 @@
 
 	}
 	p {
-		width: 500px;
+		width: 700px;
 		font-family: helvetica;
 		letter-spacing: -0.03rem;
 		font-size: 17px;
@@ -41,7 +41,7 @@
 	}
 
 	.legend {
-		margin-left: 85px;
+		margin-left: 175px;
 
 	}
 	
@@ -53,6 +53,7 @@
 	}
 	#legendLinear {
 		float: left;
+		
 	}
 
 </style>
@@ -73,8 +74,8 @@
 	<div id="map" style="display: inline-block">
 		<script type="text/javascript">
 
-			var width = 120;
-			var height = 140;
+			var width = 165;
+			var height = 200;
 			var cellpadding = 30;
 
 			d3.json("WardsAMI.geojson")
@@ -98,7 +99,7 @@
 
 			var projection = d3.geoMercator()
 				.center([-77.0380, 38.8672])
-				.scale(24000)
+				.scale(34000)
 				.translate([width/2, height/2])
 
 			var path = d3.geoPath()
@@ -175,7 +176,7 @@
 				.style("text-anchor", "middle")
 				.style("font-family", "helvetica")
 				.attr("x", (width + 10)/2)
-				.attr("y", height-10)
+				.attr("y", height-20)
 				.text(function(d){
 					return mult
 				})
