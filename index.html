@@ -22,6 +22,10 @@
 		margin-right: 55px;
 	}
 
+	#multchatter {
+		margin-top: 5px;
+	}
+
 	#tags {
 		font-size: 11px;
 	}
@@ -72,13 +76,15 @@
 
 <head>
 	<div id="headline">
-		<h4>Fewer than half of subsidized units are affordable for families making less than $60,650, or 50% of the area median income 	</h4>
-		<p>Combined, the maps show 100% of subsidized affordable units built, preserved and planned since 2015. Hover over the maps to show what percentage of total units are affordable at the area median income level in a given ward. </p>
+		<h4>The largest portion of subsidized units are affordable to families making 51-60% of the area median income.</h4>
+		<!-- <h4>Fewer than half of subsidized units are affordable for families making less than $60,650, or 50% of the area median income 	</h4> -->
+		<p id="multchatter">The maps combine to show 100% of subsidized affordable units built, preserved or planned since 2015. They show where they have been built and how affordable they are. Hover over a ward on a map to show what percentage of the city's total units are affordable at that map's designated income level in that ward. Hovering over Ward 3 on the 0-30 AMI map reveals that exactly 0% of all subsidized units affordable to the District's lowest income families were built in that ward.</p> 
+		<!-- <p>Combined, the maps show 100% of subsidized affordable units built, preserved and planned since 2015. Hover over the maps to show what percentage of total units are affordable at the area median income level in a given ward. </p> -->
 
 	</div>
 	<body>
 			
-			
+	
 
 	</body>
 	<div id="map" style="display: inline-block">
@@ -186,6 +192,7 @@
 				.attr("class", "label")
 				.style("text-anchor", "middle")
 				.style("font-family", "helvetica")
+				.style("font-size", "24px")
 				.attr("x", (width + 10)/2)
 				.attr("y", height-14)
 				.text(function(d){
@@ -201,7 +208,7 @@
 		</script>
 	</div>
 
-		<div id="wrapper">
+		<!-- <div id="wrapper">
 		<div id="legend">
 			
 				<script type="text/javascript">
@@ -215,9 +222,12 @@
 
 
 
+
 					var linear = d3.scaleLinear()
   						.domain([0,10])
   						.range(["rgb(252, 251, 253)", "rgb(63, 0, 125)"]);
+
+  					
 
 			var svgs = d3.select("svg");
 
@@ -238,7 +248,7 @@
   			
 
 
-				</script>
+				</script> -->
 				<div>
 					<div>
 	<div class="wrapper">
